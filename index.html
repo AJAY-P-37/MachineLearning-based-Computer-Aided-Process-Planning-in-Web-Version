@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Computer Aided Process Planning</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .userinputs {
+            float: left;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Welcome To Computer Aided Process Planning using Machine Learning</h1>
+    </header>
+    <section>
+        <div class="userinputs">
+            <label for="processes">Select the Processes</label><br>
+            <select id="processes">
+                <option value="null">--Please Select--</option>
+                <option value="Turning">Turning</option>
+                <option value="Taper Turning">Taper Turning</option>
+                <option value="Drilling">Drilling</option>
+                <option value="External Threading">Internal Threading</option>
+                <option value="Internal Threading">External Threading</option>
+            </select>
+            <ol id="processlist">
+
+            </ol>
+        </div>
+        <div class="userinputs">
+            <label for="dimensions">Enter the Dimensions</label><br>
+            <input type="number" placeholder="Dia" min="0" max="300" id="dimensions1">
+            <input type="number" placeholder="Len" min="0" max="300" id="dimensions2">
+            <input type="number" placeholder="Offset" min="0" max="300" id="dimensions3">
+            <ol id="dimensionslist">
+
+            </ol>
+        </div>
+    </section>
+    <section>
+
+    </section>
+    <footer>
+
+    </footer>
+    <script src="CAPP_Working.js"></script>
+</body>
+
+</html>
