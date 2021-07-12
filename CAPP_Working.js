@@ -24,8 +24,10 @@ inputProcess.addEventListener("change", (e) => {
     else {
         alert("Update The Dimensions for Previous Process")
     }
-})
+    inputProcess.value = "-- Please Select --";
+    inputProcess.innerText = "-- Please Select --"
 
+})
 function createNewListOfDimensions(diameter, length, offset, minDiameter = null) {
     const tempList = document.createElement("li");
     if (minDiameter == null) {
