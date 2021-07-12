@@ -21,29 +21,37 @@
         <h1>Welcome To Computer Aided Process Planning using Machine Learning</h1>
     </header>
     <section>
-        <div class="userinputs">
-            <label for="processes">Select the Processes</label><br>
-            <select id="processes">
-                <option value="null">--Please Select--</option>
-                <option value="Turning">Turning</option>
-                <option value="Taper Turning">Taper Turning</option>
-                <option value="Drilling">Drilling</option>
-                <option value="External Threading">External Threading</option>
-                <option value="Internal Threading">Internal Threading</option>
-            </select>
-            <ol id="processlist">
+        <div class="container">
+            <div class="row">
+                <div class="userinputs col-2 input-group mb-3" style="max-width:300px;">
+                    <label class="input-group-text" for="processes">Select the Processes</label><br>
+                    <select id="processes" class="form-select" aria-label="Default select example">
+                        <option selected value="null">--Please Select--</option>
+                        <option value="Turning">Turning</option>
+                        <option value="Taper Turning">Taper Turning</option>
+                        <option value="Drilling">Drilling</option>
+                        <option value="External Threading">External Threading</option>
+                        <option value="Internal Threading">Internal Threading</option>
+                    </select>
+                </div>
 
-            </ol>
-        </div>
-        <div class="userinputs">
-            <label for="dimensions">Enter the Dimensions</label><br>
-            <input type="number" placeholder="Dia" min="0" max="300" id="dimensions1">
-            <input type="number" placeholder="Len" min="0" max="300" id="dimensions2">
-            <input type="number" placeholder="Offset" min="0" max="300" id="dimensions3">
-            <ol id="dimensionslist">
+                <div class="userinputs col-2">
+                    <label for="dimensions">Enter the Dimensions</label><br>
+                    <input type="number" placeholder="Dia" min="0" max="300" id="dimensions1" required>
+                    <input type="number" placeholder="Len" min="0" max="300" id="dimensions2">
+                    <input type="number" placeholder="Offset" min="0" max="300" id="dimensions3">
+                    <ol id="dimensionslist">
 
-            </ol>
+                    </ol>
+                </div>
+            </div>
         </div>
+
+
+        <ol id="processlist">
+
+        </ol>
+
     </section>
     <section>
 
