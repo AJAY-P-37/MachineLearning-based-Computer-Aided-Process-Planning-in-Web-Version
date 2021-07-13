@@ -39,85 +39,47 @@ const inputLen = document.getElementById("dimensions2");
 const inputOff = document.getElementById("dimensions3");
 
 let newInput = null;
-// function validateAllInputs() {
-//     let validated = true;
-//     for (let i of [inputDia, inputLen, inputOff]) {
-//         i.addEventListener("input", e => {
-//             i.setCustomValidity('');
-//             if (i.checkValidity())
-//                 validated = true;
-//         })
-//         i.addEventListener("invalid", (e) => {
-//             i.setCustomValidity("Please Enter value Between 0 to 300");
-//             validated = false;
-//         })
-
-//     }
-//     if (inputDia.checkValidity()) {
-//         validated = true;
-//     }
-//     inputDia.addEventListener("invalid", e => {
-//         inputDia.setCustomValidity("Please Enter value Between 0 to 300")
-//         validated = false;
-//     })
-//     if (newInput != null) {
-//         if (newInput.checkValidity()) {
-//             validated = true;
-//         }
-//         newInput.addEventListener("invalid", e => {
-//             newInput.setCustomValidity("Please Enter value Between 0 to 300")
-//             validated = false;
-//         })
-//     }
-//     return validated;
-// }
-
-function validateAllInputs() {
-    let validated = true;
-    // inputDia.addEventListener("input", e => {
-    //     validated = inputDia.checkValidity();
-    // })
-    // inputDia.addEventListener("invalid", (e) => {
-    //     console.log("shit")
-    // })
-    // inputLen.addEventListener("input", e => {
-    //     validated = inputLen.checkValidity();
-    // })
-    // inputLen.addEventListener("invalid", (e) => {
-    //     console.log("shit")
-    // })
-    // inputOff.addEventListener("input", e => {
-    //     validated = inputOff.checkValidity();
-    // })
-    // inputOff.addEventListener("invalid", (e) => {
-    //     console.log("shit")
-    // })
-    if (inputDia.value == "" && inputDia < 0 && inputDia > 300) {
-        validated = false;
-    }
-    return validated;
-}
-console.log(inputDia.oninput = validateAllInputs());
 const enterButton = document.getElementById("enterbutton");
-enterButton.disabled = inputDia.checkValidity() && inputLen.checkValidity() && inputOff.checkValidity();
-enterButton.addEventListener("click", e => {
 
-    if (validateAllInputs()) {
-        diameter = inputDia.value;
-        length = inputLen.value;
-        offset = inputOff.value;
-        if (newInput != null) {
-            minDiameter = newInput.value;
-        } else {
-            minDiameter = null;
-        }
-        if (inputProcessList.getElementsByTagName("li").length - 1 == dimensionsList.getElementsByTagName("li").length) {
-            createNewListOfDimensions(diameter, length, offset, minDiameter);
-        } else {
-            alert("Update the 'Process' for the Dimensions")
-        }
+const validateDimensions = function () {
+    inputDia.setCustomValidity("");
+    inputLen.setCustomValidity("");
+    inputOff.setCustomValidity("");
+    if (newInput != null) {
+        newInput.setCustomValidity("");
+        enterButton.disabled = !(inputDia.checkValidity() && inputLen.checkValidity() && inputOff.checkValidity() && newInput.checkValidity());
+
+    } else {
+        enterButton.disabled = !(inputDia.checkValidity() && inputLen.checkValidity() && inputOff.checkValidity());
     }
-    enterButton.disabled = true;
+}
+const showValidationMsg = function () {
+    return "Please enter values between 0 and 300 with maximum of two decimal points";
+}
+inputDia.addEventListener("input", validateDimensions)
+inputDia.addEventListener("invalid", () => inputDia.setCustomValidity(showValidationMsg))
+inputLen.addEventListener("input", validateDimensions)
+inputLen.addEventListener("invalid", () => inputLen.setCustomValidity(showValidationMsg))
+inputOff.addEventListener("input", validateDimensions)
+inputOff.addEventListener("invalid", () => inputOff.setCustomValidity(showValidationMsg))
+
+enterButton.addEventListener("click", e => {
+    diameter = inputDia.value;
+    length = inputLen.value;
+    offset = inputOff.value;
+    if (newInput != null) {
+        minDiameter = newInput.value;
+    } else {
+        minDiameter = null;
+    }
+    if (inputProcessList.getElementsByTagName("li").length - 1 == dimensionsList.getElementsByTagName("li").length) {
+        createNewListOfDimensions(diameter, length, offset, minDiameter);
+        enterButton.disabled = true;
+    } else {
+        alert("Update the 'Process' for the Dimensions")
+        return false;
+    }
+
 
 
 })
@@ -126,12 +88,9 @@ document.addEventListener('keypress', function (e) {
         e.preventDefault();
         return false;
     }
-
 });
 
 function createNewListOfDimensions(diameter, length, offset, minDiameter = null) {
-
-
     inputDia.placeholder = "Dia";
 
     const tempList = document.createElement("li");
@@ -176,13 +135,10 @@ function addAnotherDimension() {
     newInput.step = "0.01";
     inputDia.placeholder = "MaxDia";
     newInput.placeholder = "MinDia";
+    newInput.id = "dimensionNew";
     newInput.classList.add("form-control")
     inputDia.parentNode.insertBefore(newInput, inputLen);
 
-    newInput.addEventListener("input", e => {
-        newInput.checkValidity();
-    })
-    newInput.addEventListener("invalid", e => {
-        console.log("shit")
-    })
+    newInput.addEventListener("input", validateDimensions)
+    newInput.addEventListener("invalid", showValidationMsg)
 }
