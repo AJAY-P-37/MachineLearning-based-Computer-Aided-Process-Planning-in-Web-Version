@@ -1,0 +1,16 @@
+select#processes.form-select{
+    max-width: 120px;
+    min-width: 120px;
+}
+
+form div input{
+    max-width: 90px;
+}
+
+form div.col-sm-3{
+    width:fit-content;
+}
+
+#dimensionslist, #processlist{
+    list-style-type: none;
+}

@@ -20,37 +20,56 @@
     <header>
         <h1>Welcome To Computer Aided Process Planning using Machine Learning</h1>
     </header>
-    <section>
-        <div class="container">
+    <section class="row container justify-content-evenly">
+        <div class="col-md-10">
+            <form class="row align-items-center justify-content-sm-evenly">
+                <div class="col-md-3">
+                    <div class="userinputs input-group">
+                        <label class="input-group-text" for="processes">Process</label>
+                        <select id="processes" class="form-select" aria-label="Default select example" required>
+                            <option value="null">--Select--</option>
+                            <option value="Turning">Turning</option>
+                            <option value="Taper Turning">Taper Turning</option>
+                            <option value="Drilling">Drilling</option>
+                            <option value="External Threading">External Threading</option>
+                            <option value="Internal Threading">Internal Threading</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="input-group userinputs">
+                        <label class="input-group-text" for="dimensions">Dimensions</label><br>
+                        <input class="form-control" type="number" placeholder="Dia" min="0" max="300" step="0.01"
+                            id="dimensions1" required>
+                        <input class="form-control" type="number" placeholder="Len" min="0" max="300" step="0.01"
+                            id="dimensions2" required>
+                        <input class="form-control" type="number" placeholder="Offset" min="0" max="300" step="0.01"
+                            id="dimensions3" required>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="userinputs input-group">
+                        <button type="submit" class="btn btn-primary" id="enterbutton" disabled>Enter</button>
+                    </div>
+                </div>
+            </form>
             <div class="row">
-                <div class="userinputs col-2 input-group mb-3" style="max-width:300px;">
-                    <label class="input-group-text" for="processes">Select the Processes</label><br>
-                    <select id="processes" class="form-select" aria-label="Default select example">
-                        <option selected value="null">--Please Select--</option>
-                        <option value="Turning">Turning</option>
-                        <option value="Taper Turning">Taper Turning</option>
-                        <option value="Drilling">Drilling</option>
-                        <option value="External Threading">External Threading</option>
-                        <option value="Internal Threading">Internal Threading</option>
-                    </select>
-                </div>
+                <ol class="col-3" id="processlist">
 
-                <div class="userinputs col-2">
-                    <label for="dimensions">Enter the Dimensions</label><br>
-                    <input type="number" placeholder="Dia" min="0" max="300" id="dimensions1" required>
-                    <input type="number" placeholder="Len" min="0" max="300" id="dimensions2">
-                    <input type="number" placeholder="Offset" min="0" max="300" id="dimensions3">
-                    <ol id="dimensionslist">
+                </ol>
+                <ol class="col" id="dimensionslist">
 
-                    </ol>
-                </div>
+                </ol>
             </div>
         </div>
 
 
-        <ol id="processlist">
-
-        </ol>
+        <div class="col-md-2">
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reiciendis neque iure rem aperiam corrupti
+                distinctio magni, dolorum ex sequi. Necessitatibus et nulla blanditiis vitae quia iure perspiciatis
+                cumque nisi provident?</p>
+        </div>
 
     </section>
     <section>
