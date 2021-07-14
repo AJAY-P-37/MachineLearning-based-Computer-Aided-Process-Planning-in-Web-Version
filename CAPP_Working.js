@@ -25,7 +25,8 @@ inputProcess.addEventListener("change", (e) => {
             removeDimension();
         }
         tempList.innerHTML = selected;
-        inputProcessList.appendChild(tempList)
+        backendProcessList.push(selected);
+        inputProcessList.appendChild(tempList);
     }
     else {
         alert("Update The Dimensions for Previous Process")
@@ -79,9 +80,6 @@ enterButton.addEventListener("click", e => {
         alert("Update the 'Process' for the Dimensions")
         return false;
     }
-
-
-
 })
 document.addEventListener('keypress', function (e) {
     if (e.keyCode === 13 || e.which === 13) {
@@ -92,15 +90,18 @@ document.addEventListener('keypress', function (e) {
 
 function createNewListOfDimensions(diameter, length, offset, minDiameter = null) {
     inputDia.placeholder = "Dia";
-
+    let tempDimList = []
     const tempList = document.createElement("li");
     if (minDiameter == null) {
-        tempList.innerHTML = `Diameter=${diameter}, Length=${length}, Offset=${offset}`;
+        tempDimList = [diameter, length, offset];
+        tempList.innerHTML = `: Diameter=${diameter}, Length=${length}, Offset=${offset}`;
     } else {
-        tempList.innerHTML = `Major Diameter=${diameter}, Minor Diameter=${minDiameter}, Length=${length}, Offset=${offset}`;
+        tempDimList = [diameter, minDiameter, length, offset];
+        tempList.innerHTML = `: Major Diameter=${diameter}, Minor Diameter=${minDiameter}, Length=${length}, Offset=${offset}`;
         inputDia.placeholder = "Max Dia";
     }
     console.log(tempList)
+    backendDimensionList.push(tempDimList);
     dimensionsList.appendChild(tempList);
 
     inputDia.value = "";
