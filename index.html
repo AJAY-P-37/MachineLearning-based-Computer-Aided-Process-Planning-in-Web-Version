@@ -23,7 +23,7 @@
     <section class="row">
         <div class="col-md-7">
             <form class="row align-items-center justify-content-sm-start">
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="userinputs input-group">
                         <label class="input-group-text" for="processes">Process</label>
                         <select id="processes" class="form-select" aria-label="Default select example" required>
@@ -37,7 +37,7 @@
                     </div>
                 </div>
 
-                <div class="col">
+                <div class="col-md-7">
                     <div class="input-group userinputs">
                         <label class="input-group-text" for="dimensions">Dimensions</label><br>
                         <input class="form-control" type="number" placeholder="Dia" min="0" max="300" step="0.01"
@@ -48,28 +48,44 @@
                             id="dimensions3" required>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-1">
                     <div class="userinputs input-group">
                         <button type="button" class="btn btn-primary" id="enterbutton" disabled>Enter</button>
                     </div>
                 </div>
             </form>
+            <div class="col-md-2">
+                <div class="userinputs input-group">
+                    <button type="button" class="btn btn-primary" id="deletebutton" disabled>Delete</button>
+                </div>
+            </div>
 
+        </div>
+
+
+        <div class="col-md-5">
+            <h3>List of all Processes and Dimensions</h3>
             <div class="row">
+                <select id="inputlist" size="0" class="form-select" multiple aria-label="multiple select example">
+
+                </select>
+                <!--
+                <select id="processlist" size="1" class="form-select col-3" multiple
+                    aria-label="multiple select example">
+
+                </select>
+                <select id="dimensionslist" size="1" class="form-select" multiple aria-label="multiple select example">
+
+                </select>
+
                 <ol class="col-3" id="processlist">
 
                 </ol>
                 <ol class="col" id="dimensionslist">
 
                 </ol>
+                -->
             </div>
-        </div>
-
-
-        <div class="col-md-5">
-            <h3>List of all Processes and Dimensions</h3>
-            <p>Taper Turning
-                Major Diameter=232, Minor Diameter=3, Length=23, Offset=23</p>
         </div>
 
     </section>

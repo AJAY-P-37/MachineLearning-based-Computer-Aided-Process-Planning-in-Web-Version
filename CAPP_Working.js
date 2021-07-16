@@ -1,18 +1,16 @@
-const inputProcessList = document.getElementById("processlist");
 const inputProcess = document.getElementById("processes");
 
+const processList = document.getElementById("processlist");
 const dimensionsList = document.getElementById("dimensionslist");
+const inputList = document.getElementById("inputlist")
 
 let backendProcessList = [];
 let backendDimensionList = [];
 
-inputProcess.addEventListener("click", e => {
-    inputProcess.value = null
-})
 inputProcess.addEventListener("change", (e) => {
-    console.log(inputProcessList.getElementsByTagName("li").length, dimensionsList.getElementsByTagName("li").length)
-    if (inputProcessList.getElementsByTagName("li").length == dimensionsList.getElementsByTagName("li").length) {
-        const tempList = document.createElement("li");
+
+    if (backendProcessList.length == backendDimensionList.length) {
+        const tempList = document.createElement("option");
         let selected = inputProcess.options[inputProcess.selectedIndex].value;
         if (selected == "Taper Turning") {
             addAnotherDimension();
@@ -26,7 +24,8 @@ inputProcess.addEventListener("change", (e) => {
         }
         tempList.innerHTML = selected;
         backendProcessList.push(selected);
-        inputProcessList.appendChild(tempList);
+        inputList.size += 1;
+        inputList.appendChild(tempList);
     }
     else {
         alert("Update The Dimensions for Previous Process")
@@ -73,9 +72,11 @@ enterButton.addEventListener("click", e => {
     } else {
         minDiameter = null;
     }
-    if (inputProcessList.getElementsByTagName("li").length - 1 == dimensionsList.getElementsByTagName("li").length) {
+
+    if (backendProcessList.length - 1 == backendDimensionList.length) {
         createNewListOfDimensions(diameter, length, offset, minDiameter);
         enterButton.disabled = true;
+        inputProcess.value = null;
     } else {
         alert("Update the 'Process' for the Dimensions")
         return false;
@@ -91,18 +92,19 @@ document.addEventListener('keypress', function (e) {
 function createNewListOfDimensions(diameter, length, offset, minDiameter = null) {
     inputDia.placeholder = "Dia";
     let tempDimList = []
-    const tempList = document.createElement("li");
+    const tempList = document.createElement("option");
     if (minDiameter == null) {
         tempDimList = [diameter, length, offset];
-        tempList.innerHTML = `: Diameter=${diameter}, Length=${length}, Offset=${offset}`;
+        tempList.innerHTML += `: Diameter=${diameter}, Length=${length}, Offset=${offset}`;
     } else {
         tempDimList = [diameter, minDiameter, length, offset];
-        tempList.innerHTML = `: Major Diameter=${diameter}, Minor Diameter=${minDiameter}, Length=${length}, Offset=${offset}`;
+        tempList.innerHTML += `: Major Diameter=${diameter}, Minor Diameter=${minDiameter}, Length=${length}, Offset=${offset}`;
         inputDia.placeholder = "Max Dia";
     }
-    console.log(tempList)
+
     backendDimensionList.push(tempDimList);
-    dimensionsList.appendChild(tempList);
+    inputList.options[inputList.size - 1].innerHTML += tempList.innerHTML;
+    console.log(inputList.options[inputList.size - 1])
 
     inputDia.value = "";
 
@@ -115,6 +117,7 @@ function createNewListOfDimensions(diameter, length, offset, minDiameter = null)
     if (newInput != null) {
         newInput.value = "";
         newInput.placeholder = "Min Dia"
+        removeDimension();
     }
 
 }
