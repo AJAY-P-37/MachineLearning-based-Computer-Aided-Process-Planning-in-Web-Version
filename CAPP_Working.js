@@ -154,7 +154,6 @@ deleteButton.addEventListener("click", e => {
         alert("Select the item to be deleted");
     }
     else {
-        console.log(inputList.selectedOptions)
         while (inputList.selectedIndex != -1) {
             backendProcessList.splice(inputList.selectedIndex, 1);
             backendDimensionList.splice(inputList.selectedIndex, 1);
