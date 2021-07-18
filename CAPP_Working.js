@@ -104,7 +104,7 @@ function createNewListOfDimensions(diameter, length, offset, minDiameter = null)
 
     backendDimensionList.push(tempDimList);
     inputList.options[inputList.size - 1].innerHTML += tempList.innerHTML;
-    console.log(inputList.options[inputList.size - 1])
+    console.log(inputList.options[inputList.size - 1].innerHTML)
 
     inputDia.value = "";
 
@@ -146,3 +146,22 @@ function addAnotherDimension() {
     newInput.addEventListener("input", validateDimensions)
     newInput.addEventListener("invalid", showValidationMsg)
 }
+
+const deleteButton = document.getElementById("deletebutton");
+
+deleteButton.addEventListener("click", e => {
+    if (inputList.selectedIndex == -1) {
+        alert("Select the item to be deleted");
+    }
+    else {
+        console.log(inputList.selectedOptions)
+        while (inputList.selectedIndex != -1) {
+            backendProcessList.splice(inputList.selectedIndex, 1);
+            backendDimensionList.splice(inputList.selectedIndex, 1);
+            inputList.removeChild(inputList.options[inputList.selectedIndex]);
+            inputList.size -= 1;
+        }
+        inputProcess.value = null;
+    }
+
+})

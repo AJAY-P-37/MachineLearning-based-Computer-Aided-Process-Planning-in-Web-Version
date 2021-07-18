@@ -25,3 +25,7 @@ select#dimensionslist {
 select#inputlist{
     max-width: 630px;
 }
+
+.boldText {
+    font-weight: bold;
+}
