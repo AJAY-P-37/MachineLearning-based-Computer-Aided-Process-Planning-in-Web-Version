@@ -39,7 +39,7 @@ const inputLen = document.getElementById("dimensions2");
 const inputOff = document.getElementById("dimensions3");
 
 let newInput = null;
-const enterButton = document.getElementById("enterbutton");
+const enterButton = document.getElementById("enterbutton1");
 
 const validateDimensions = function () {
     inputDia.setCustomValidity("");
@@ -163,4 +163,38 @@ deleteButton.addEventListener("click", e => {
         inputProcess.value = null;
     }
 
+})
+
+const wpDia = document.getElementById("wpdimensions1");
+const wpLen = document.getElementById("wpdimensions2");
+const wpEnterButton = document.getElementById("enterbutton2");
+
+const validateWpDimensions = function () {
+    wpDia.setCustomValidity("");
+    wpLen.setCustomValidity("");
+
+    wpEnterButton.disabled = !(wpDia.checkValidity() && wpLen.checkValidity());
+}
+const showWpValidationMsg = function () {
+    return "Please enter values between 0 and 300 with maximum of two decimal points";
+}
+
+wpDia.addEventListener("input", validateWpDimensions);
+wpDia.addEventListener("invalid", () => wpDia.setCustomValidity(showWpValidationMsg));
+wpLen.addEventListener("input", validateWpDimensions);
+wpLen.addEventListener("invalid", () => wpLen.setCustomValidity(showWpValidationMsg));
+
+const clearButton = document.getElementById("clearbutton");
+
+clearButton.addEventListener("click", e => {
+
+    backendProcessList = [];
+    backendDimensionList = [];
+    inputList.replaceChildren();
+    // while (inputList.firstChild) {
+    //     inputList.removeChild(inputList.lastChild);
+    //     inputList.size -= 1;
+    // }
+    inputList.size = 0;
+    inputProcess.value = null;
 })

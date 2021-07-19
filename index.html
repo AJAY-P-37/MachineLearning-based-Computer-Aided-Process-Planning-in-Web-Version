@@ -50,13 +50,34 @@
                 </div>
                 <div class="col-md-1">
                     <div class="userinputs input-group">
-                        <button type="button" class="btn btn-primary" id="enterbutton" disabled>Enter</button>
+                        <button type="button" class="btn btn-primary" id="enterbutton1" disabled>Enter</button>
                     </div>
                 </div>
             </form>
-            <div class="col-md-2">
-                <div class="userinputs input-group">
-                    <button type="button" class="btn btn-primary" id="deletebutton">Delete</button>
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="input-group userinputs">
+                        <label class="input-group-text" for="dimensions">WorkPiece Dimensions</label><br>
+                        <input class="form-control" type="number" placeholder="Dia" min="0" max="300" step="0.01"
+                            id="wpdimensions1" required>
+                        <input class="form-control" type="number" placeholder="Len" min="0" max="300" step="0.01"
+                            id="wpdimensions2" required>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="userinputs input-group">
+                        <button type="button" class="btn btn-primary" id="enterbutton2" disabled>Enter</button>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="userinputs input-group">
+                        <button type="button" class="btn btn-primary" id="deletebutton">Delete</button>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="userinputs input-group">
+                        <button type="button" class="btn btn-primary" id="clearbutton">Clear All</button>
+                    </div>
                 </div>
             </div>
 
@@ -69,22 +90,6 @@
                 <select id="inputlist" size="0" class="form-select" multiple aria-label="multiple select example">
 
                 </select>
-                <!--
-                <select id="processlist" size="1" class="form-select col-3" multiple
-                    aria-label="multiple select example">
-
-                </select>
-                <select id="dimensionslist" size="1" class="form-select" multiple aria-label="multiple select example">
-
-                </select>
-
-                <ol class="col-3" id="processlist">
-
-                </ol>
-                <ol class="col" id="dimensionslist">
-
-                </ol>
-                -->
             </div>
         </div>
 
