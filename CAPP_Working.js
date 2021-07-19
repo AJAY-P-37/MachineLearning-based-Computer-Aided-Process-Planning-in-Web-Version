@@ -197,4 +197,5 @@ clearButton.addEventListener("click", e => {
     // }
     inputList.size = 0;
     inputProcess.value = null;
+    //yes
 })
