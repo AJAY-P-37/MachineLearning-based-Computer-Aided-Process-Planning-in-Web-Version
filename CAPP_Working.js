@@ -82,6 +82,7 @@ enterButton.addEventListener("click", e => {
         return false;
     }
 })
+
 document.addEventListener('keypress', function (e) {
     if (e.keyCode === 13 || e.which === 13) {
         e.preventDefault();
@@ -147,27 +148,10 @@ function addAnotherDimension() {
     newInput.addEventListener("invalid", showValidationMsg)
 }
 
-const deleteButton = document.getElementById("deletebutton");
-
-deleteButton.addEventListener("click", e => {
-    if (inputList.selectedIndex == -1) {
-        alert("Select the item to be deleted");
-    }
-    else {
-        while (inputList.selectedIndex != -1) {
-            backendProcessList.splice(inputList.selectedIndex, 1);
-            backendDimensionList.splice(inputList.selectedIndex, 1);
-            inputList.removeChild(inputList.options[inputList.selectedIndex]);
-            inputList.size -= 1;
-        }
-        inputProcess.value = null;
-    }
-
-})
-
 const wpDia = document.getElementById("wpdimensions1");
 const wpLen = document.getElementById("wpdimensions2");
 const wpEnterButton = document.getElementById("enterbutton2");
+const wpInput = document.getElementById("wpinput");
 
 const validateWpDimensions = function () {
     wpDia.setCustomValidity("");
@@ -178,11 +162,46 @@ const validateWpDimensions = function () {
 const showWpValidationMsg = function () {
     return "Please enter values between 0 and 300 with maximum of two decimal points";
 }
-
+let backendWpList = [];
 wpDia.addEventListener("input", validateWpDimensions);
 wpDia.addEventListener("invalid", () => wpDia.setCustomValidity(showWpValidationMsg));
 wpLen.addEventListener("input", validateWpDimensions);
 wpLen.addEventListener("invalid", () => wpLen.setCustomValidity(showWpValidationMsg));
+
+wpEnterButton.addEventListener("click", e => {
+    wpInput.replaceChildren();
+    const tempList = document.createElement("option");
+    tempList.innerHTML = `Diameter=${wpDia.value} Length=${wpLen.value}`;
+    wpInput.appendChild(tempList);
+    wpEnterButton.disabled = true;
+
+    backendWpList.push(wpDia.value);
+    backendWpList.push(wpLen.value);
+})
+
+const deleteButton = document.getElementById("deletebutton");
+
+deleteButton.addEventListener("click", e => {
+    if (inputList.selectedIndex == -1 && wpInput.selectedIndex == -1) {
+        alert("Select the item to be deleted");
+    }
+    else {
+        if (wpInput.selectedIndex != -1) {
+            wpInput.removeChild(wpInput.options[wpInput.selectedIndex])
+            wpDia.value = "";
+            wpLen.value = "";
+        }
+        while (inputList.selectedIndex != -1) {
+            backendProcessList.splice(inputList.selectedIndex, 1);
+            backendDimensionList.splice(inputList.selectedIndex, 1);
+            inputList.removeChild(inputList.options[inputList.selectedIndex]);
+            inputList.size -= 1;
+            inputProcess.value = null;
+        }
+
+    }
+
+})
 
 const clearButton = document.getElementById("clearbutton");
 
@@ -197,5 +216,46 @@ clearButton.addEventListener("click", e => {
     // }
     inputList.size = 0;
     inputProcess.value = null;
+    wpInput.replaceChildren();
+    wpDia.value = "";
+    wpLen.value = "";
+
     //yes
 })
+
+/****Backend Work starts********/
+
+const writeToFileVar = function writeToFile() {
+    // POST
+    const jsonInput = {
+        "backendProcessList": backendProcessList,
+        "backendDimensionList": backendDimensionList,
+        "backendWpList": backendWpList
+    }
+    fetch('/submit', {
+
+        // Declare what type of data we're sending
+        headers: {
+            'Content-Type': 'application/json'
+        },
+
+        // Specify the method
+        method: 'POST',
+
+        // A JSON payload
+        body: JSON.stringify(jsonInput)
+    }).then(function (response) { // At this point, Flask has printed our JSON
+        return response.text();
+    }).then(function (text) {
+
+        console.log('POST response: ');
+
+        // Should be 'OK' if everything was successful
+        console.log(text);
+    });
+}
+
+
+const submitButton = document.getElementById("submit");
+
+submitButton.addEventListener("click", writeToFileVar);

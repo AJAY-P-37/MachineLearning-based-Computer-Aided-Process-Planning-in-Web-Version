@@ -22,7 +22,7 @@ select#dimensionslist {
     max-width: 450px;
 }
 
-select#inputlist{
+select#inputlist, select#wpinput{
     max-width: 630px;
 }
 
