@@ -2,8 +2,6 @@ const express = require("express")
 const app = express()
 const path = require("path")
 
-const fs = require('fs')
-
 // app.use(express.urlencoded({ extended: true }));
 app.use(express.json())
 app.use(express.static(__dirname));
@@ -16,19 +14,29 @@ app.get("/index.html", (req, res) => {
 
 let dataFromFrontEnd = {};
 
-function reportReading() {
-    process.stdout.write(dataFromFrontEnd + '\n'); // Write with newline char
-    setTimeout(reportReading, Math.random() * 5000); // Wait 0 to 5 seconds
-}
+let data = null
 
-app.post("/submit", (req, res) => {
-    console.log(req.body)
+app.post("/submit", async (req, res) => {
+    console.log('reqBody', req.body)
     dataFromFrontEnd = req.body
-    fs.writeFileSync("input.txt", JSON.stringify(dataFromFrontEnd))
-    reportReading();
+
+    data = JSON.stringify(dataFromFrontEnd);
+
+    const pythonCaller = require("./pythonCaller");
+    try {
+        const result = await pythonCaller.callPython("backend.py", data);
+    }
+    catch (e) {
+        console.log('e45', e)
+    }
+    console.log('await', result)
+    result.then((e) => {
+    }).catch((err) => {
+
+        console.log('await', result)
+    })
 
 
-    res.send("fack")
 })
 
 app.listen(5500, "127.0.0.1", function () {

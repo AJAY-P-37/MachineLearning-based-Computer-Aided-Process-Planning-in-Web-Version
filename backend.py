@@ -4,6 +4,11 @@ import json
 import os
 
 
+from tensorflow import keras
+from sklearn.neural_network import MLPClassifier
+import pickle
+
+
 def sequencing(sequence_no, zipped, NoT, NoTT, NoD, NoET, NoIT):
     global wp_len
     work_holding = ''
@@ -108,33 +113,7 @@ def zipping():
                         ' x ' + str(j[1][1]) + 'mm')
     workholding_list.insert(0, work_holding)
 
-
-# importing the module
-
-# # Opening JSON file
-# with open('input.txt') as text_file:
-#     data = json.load(text_file)
-
-#     # Print the type of data variable
-#     print("Type:", type(data))
-
-#     # Print the data of dictionary
-#     print("\nPeople1:", data['backendDimensionList'])
-#     print("\nPeople2:", data['people2'])
-
-
-temperatures = []  # store temperatures
-data = Popen(['node', 'index.js'], stdout=PIPE)
-buffer = b''
-while True:
-
-    # read sensor data one char at a time
-    out = data.stdout.read(1)
-
-    # after a full reading..
-    if out == b'\n':
-        temperatures.append(buffer)
-        print(temperatures)
-        buffer = b''
-    else:
-        buffer += out  # append to buffer
+if __name__=='__main__':
+    data = json.loads(sys.argv[1])
+    print('python',data)
+    sys.stdout.flush()

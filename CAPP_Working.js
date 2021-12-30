@@ -52,6 +52,11 @@ const validateDimensions = function () {
     } else {
         enterButton.disabled = !(inputDia.checkValidity() && inputLen.checkValidity() && inputOff.checkValidity());
     }
+
+
+    if (backendProcessList.length != 0 && backendDimensionList.length != 0 && backendWpList.length != 0 && backendAlgoValue != null) {
+        submitButton.disabled = false;
+    }
 }
 const showValidationMsg = function () {
     return "Please enter values between 0 and 300 with maximum of two decimal points";
@@ -158,6 +163,9 @@ const validateWpDimensions = function () {
     wpLen.setCustomValidity("");
 
     wpEnterButton.disabled = !(wpDia.checkValidity() && wpLen.checkValidity());
+    if (backendProcessList.length != 0 && backendDimensionList.length != 0 && backendWpList.length != 0 && backendAlgoValue != null) {
+        submitButton.disabled = false;
+    }
 }
 const showWpValidationMsg = function () {
     return "Please enter values between 0 and 300 with maximum of two decimal points";
@@ -209,6 +217,7 @@ clearButton.addEventListener("click", e => {
 
     backendProcessList = [];
     backendDimensionList = [];
+    backendWpList = [];
     inputList.replaceChildren();
     // while (inputList.firstChild) {
     //     inputList.removeChild(inputList.lastChild);
@@ -219,8 +228,27 @@ clearButton.addEventListener("click", e => {
     wpInput.replaceChildren();
     wpDia.value = "";
     wpLen.value = "";
+    algoDropdown.value = null;
+    submitButton.disabled = true;
+
 
     //yes
+})
+
+const algoDropdown = document.getElementById('algos')
+let backendAlgoValue = null
+algoDropdown.addEventListener('change', (e) => {
+    let selected = algoDropdown.options[algoDropdown.selectedIndex].value
+    if (selected == "null") {
+        return
+    } else {
+        backendAlgoValue = selected;
+        console.log(backendAlgoValue)
+        if (backendProcessList.length != 0 && backendDimensionList.length != 0 && backendWpList.length != 0 && backendAlgoValue != null) {
+            submitButton.disabled = false;
+        }
+
+    }
 })
 
 /****Backend Work starts********/
@@ -230,7 +258,8 @@ const writeToFileVar = function writeToFile() {
     const jsonInput = {
         "backendProcessList": backendProcessList,
         "backendDimensionList": backendDimensionList,
-        "backendWpList": backendWpList
+        "backendWpList": backendWpList,
+        "algo": backendAlgoValue
     }
     fetch('/submit', {
 
@@ -257,5 +286,5 @@ const writeToFileVar = function writeToFile() {
 
 
 const submitButton = document.getElementById("submit");
-
+submitButton.disabled = true
 submitButton.addEventListener("click", writeToFileVar);
