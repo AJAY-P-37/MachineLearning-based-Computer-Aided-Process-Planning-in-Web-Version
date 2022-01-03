@@ -223,14 +223,19 @@ clearButton.addEventListener("click", e => {
     //     inputList.removeChild(inputList.lastChild);
     //     inputList.size -= 1;
     // }
+
     inputList.size = 0;
     inputProcess.value = null;
     wpInput.replaceChildren();
+
+    inputDia.value = "";
+    inputLen.value = "";
+    inputOff.value = "";
+    newInput ? newInput.value = "" : ""
     wpDia.value = "";
     wpLen.value = "";
     algoDropdown.value = null;
     submitButton.disabled = true;
-
 
     //yes
 })
@@ -261,6 +266,7 @@ const writeToFileVar = function writeToFile() {
         "backendWpList": backendWpList,
         "algo": backendAlgoValue
     }
+
     fetch('/submit', {
 
         // Declare what type of data we're sending
@@ -273,15 +279,17 @@ const writeToFileVar = function writeToFile() {
 
         // A JSON payload
         body: JSON.stringify(jsonInput)
-    }).then(function (response) { // At this point, Flask has printed our JSON
-        return response.text();
-    }).then(function (text) {
+    })
+        .then(function (response) { // At this point, Flask has printed our JSON
+            return response.text();
+        }).then(function (text) {
 
-        console.log('POST response: ');
+            document.body.innerHTML = text;
+            console.log('POST response: ');
 
-        // Should be 'OK' if everything was successful
-        console.log(text);
-    });
+            // Should be 'OK' if everything was successful
+            console.log(text);
+        });
 }
 
 

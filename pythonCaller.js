@@ -17,12 +17,13 @@ function callPython(scriptName, args) {
         pyprog.stdout.on('data', function (data) {
             result += data.toString();
             console.log('got', result)
+
+            success(result);
         });
 
         pyprog.stderr.on('data', (data) => {
 
             console.log('goterr', data)
-            //resultError += cleanWarning(data.toString());
         });
 
         // pyprog.stdout.on("end", function () {

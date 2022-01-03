@@ -1,41 +1,39 @@
 const express = require("express")
-const app = express()
+const ejsMate = require('ejs-mate')
 const path = require("path")
 
+const app = express()
 // app.use(express.urlencoded({ extended: true }));
 app.use(express.json())
 app.use(express.static(__dirname));
-// app.set("view engine", "ejs")
-// app.set("views", path.join(__dirname, "/views"))
+app.engine('ejs', ejsMate);
+app.set("view engine", "ejs")
+app.set("views", path.join(__dirname, "/views"))
 
-app.get("/index.html", (req, res) => {
-    res.sendFile(path.join(__dirname + '/index.html'))
+let result = null
+app.get("/dragDropList", (req, res) => {
+    res.render('dragDropList', { result })
+    result = null;
 })
 
 let dataFromFrontEnd = {};
 
 let data = null
 
+
 app.post("/submit", async (req, res) => {
-    console.log('reqBody', req.body)
     dataFromFrontEnd = req.body
 
-    data = JSON.stringify(dataFromFrontEnd);
+    //dataFromFrontEnd = JSON.stringify(dataFromFrontEnd);
+
+    console.log('json', dataFromFrontEnd)
 
     const pythonCaller = require("./pythonCaller");
-    try {
-        const result = await pythonCaller.callPython("backend.py", data);
-    }
-    catch (e) {
-        console.log('e45', e)
-    }
+    result = await pythonCaller.callPython("backend.py", dataFromFrontEnd);
+    result = JSON.parse(result)
     console.log('await', result)
-    result.then((e) => {
-    }).catch((err) => {
 
-        console.log('await', result)
-    })
-
+    res.redirect('dragDropList')
 
 })
 
